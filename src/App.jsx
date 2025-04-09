@@ -18,7 +18,7 @@ export const goods = [
 export function App() {
   const [selectedIndex, setSelectedIndex] = useState(null);
 
-  const handleClick = index => {
+  const toggleGood = index => {
     if (selectedIndex === index) {
       setSelectedIndex(null);
     } else {
@@ -54,7 +54,7 @@ export function App() {
                 <button
                   type="button"
                   className="button"
-                  onClick={() => handleClick(i)}
+                  onClick={() => toggleGood(i)}
                 >
                   {selectedIndex === i ? '-' : '+'}
                 </button>
