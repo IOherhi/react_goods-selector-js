@@ -16,35 +16,26 @@ export const goods = [
 ];
 
 export function App() {
-  const [buttonStates, setButtonStates] = useState(
-    Array(goods.length).fill('AddButton'),
-  );
-  const [selectedGood, setSelectedGood] = useState('Jam');
+  const [selectedIndex, setSelectedIndex] = useState(null);
 
-  const toggleButton = index => {
-    const updatedStates = [...buttonStates];
-
-    updatedStates[index] =
-      updatedStates[index] === 'AddButton' ? 'ClearButton' : 'AddButton';
-    setButtonStates(updatedStates);
-
-    if (updatedStates[index] === 'ClearButton') {
-      setSelectedGood(goods[index]);
-    } else if (selectedGood === goods[index]) {
-      setSelectedGood('');
+  const handleClick = index => {
+    if (selectedIndex === index) {
+      setSelectedIndex(null);
+    } else {
+      setSelectedIndex(index);
     }
   };
 
   return (
     <main className="section container">
       <h1 className="title is-flex is-align-items-center">
-        {selectedGood || 'No goods selected'}
-        {selectedGood && (
+        {selectedIndex !== null ? goods[selectedIndex] : 'No goods selected'}
+        {selectedIndex !== null && (
           <button
             data-cy="ClearButton"
             type="button"
             className="delete ml-3"
-            onClick={() => setSelectedGood('')}
+            onClick={() => setSelectedIndex(null)}
           />
         )}
       </h1>
@@ -56,19 +47,16 @@ export function App() {
               key={good}
               data-cy="Good"
               className={
-                buttonStates[i] === 'ClearButton'
-                  ? 'has-background-success-light'
-                  : ''
+                selectedIndex === i ? 'has-background-success-light' : ''
               }
             >
               <td>
                 <button
-                  data-cy="AddButton"
                   type="button"
                   className="button"
-                  onClick={() => toggleButton(i)}
+                  onClick={() => handleClick(i)}
                 >
-                  {buttonStates[i] === 'AddButton' ? '+' : '-'}
+                  {selectedIndex === i ? '-' : '+'}
                 </button>
               </td>
               <td data-cy="GoodTitle" className="is-vcentered">
