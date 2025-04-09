@@ -17,12 +17,13 @@ export const goods = [
 
 export function App() {
   const [buttonStates, setButtonStates] = useState(
-    Array(goods.length).fill('AddButton')
+    Array(goods.length).fill('AddButton'),
   );
   const [selectedGood, setSelectedGood] = useState('Jam');
 
-  const toggleButton = (index) => {
+  const toggleButton = index => {
     const updatedStates = [...buttonStates];
+
     updatedStates[index] =
       updatedStates[index] === 'AddButton' ? 'ClearButton' : 'AddButton';
     setButtonStates(updatedStates);
@@ -37,7 +38,7 @@ export function App() {
   return (
     <main className="section container">
       <h1 className="title is-flex is-align-items-center">
-        {selectedGood ? selectedGood : 'No goods selected'}
+        {selectedGood || 'No goods selected'}
         {selectedGood && (
           <button
             data-cy="ClearButton"
